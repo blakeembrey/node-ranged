@@ -1,0 +1,19 @@
+{
+  "name": "range",
+  "version": "0.0.1",
+  "description": "The missing JavaScript range function",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test.js"
+  },
+  "repository": "",
+  "keywords": [
+    "range"
+  ],
+  "author": "Blake Embrey",
+  "license": "MIT",
+  "readmeFilename": "Readme.md",
+  "devDependencies": {
+    "mocha": "~1.8.2"
+  }
+}

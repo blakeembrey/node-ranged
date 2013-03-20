@@ -1,0 +1,5 @@
+{
+  "name": "range",
+  "main": ["./index.js"],
+  "dependencies": {}
+}
