@@ -35,7 +35,8 @@ module.exports = function (/* start, stop, step, exclusive */) {
       exclusive = false,
       charCodes = false,
       array     = [],
-      parse;
+      reversed  = false,
+      difference, parse;
 
   switch (arguments.length) {
     case 1:
@@ -74,6 +75,8 @@ module.exports = function (/* start, stop, step, exclusive */) {
         step      = arguments[2];
         exclusive = !!arguments[3];
       break;
+    default:
+      throw new Error('Unexpected number of arguments');
   }
 
   // Kick into character code mode if either types are strings
@@ -81,21 +84,37 @@ module.exports = function (/* start, stop, step, exclusive */) {
     charCodes = true;
     start     = ('' + start).charCodeAt(0);
     stop      = ('' + stop).charCodeAt(0);
-    step      = step || 1;
-  } else if (!step) {
-    // Both are likely numbers, but no step was provided. Use the greatest
-    // number of decimal places to calculate a step interval appropriately
-    step = Math.pow(10, Math.floor(Math.log(Math.abs(stop - start > 9 ? (stop - start) / 10 : stop - start)) / Math.log(10)));
   }
 
-  step = Math.abs(step) * (start > stop ? -1 : 1) || 1; // Evals to `0` - use `1`
+  if (start > stop) {
+    var temp = start;
+    start    = stop;
+    stop     = temp;
 
-  for (var i = start; step < 0 ? i >= stop : i <= stop; i += step) {
+    reversed = true;
+  }
+
+  difference = stop - start; // Cache the difference
+
+  if (!step && !charCodes) {
+    // Both are likely numbers, but no step was provided. Use the greatest
+    // number of decimal places to calculate a step interval appropriately
+    step = Math.pow(10, Math.floor(Math.log(difference > 9 ? difference / 10 : difference) / Math.log(10)));
+  } else {
+    step = Math.abs(step);
+  }
+
+  step = step || 1; // Evals to `0` or `NaN` - will use `1`
+
+  for (var i = start; i <= stop; i += step) {
     array.push(charCodes ? String.fromCharCode(i) : i);
   }
 
+  // If the array should be reversed, quickly reverse the array
+  if (reversed) { array.reverse(); }
+
   // If it's exclusive, use the step to exclude the final element from the array
-  if (exclusive && (stop - start) % step === 0) {
+  if (exclusive && difference % step === 0) {
     array.pop();
   }
 

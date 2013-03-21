@@ -4,16 +4,19 @@
   "description": "The missing JavaScript range function",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test.js"
+    "test": "./node_modules/mocha/bin/mocha test.js",
+    "bench": "node benchmark.js"
   },
   "repository": "",
   "keywords": [
-    "range"
+    "range",
+    "function"
   ],
   "author": "Blake Embrey",
   "license": "MIT",
   "readmeFilename": "Readme.md",
   "devDependencies": {
-    "mocha": "~1.8.2"
+    "mocha": "~1.8.2",
+    "benchmark": "~1.0.0"
   }
 }
