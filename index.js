@@ -11,12 +11,12 @@ var parseRangeString = function (string) {
   }
 
   if (string[0] === '.') {
-    indexOf += 1; // Increment the index of by one
+    indexOf += 1; // Increment the index by one
   }
 
   parse.start = string.slice(0, indexOf);
   parse.stop  = string.slice(indexOf + 2);
-  if (parse.stop.charAt(0) === '.' && parse.stop.length > 1) {
+  if (parse.stop[0] === '.' && parse.stop.length > 1) {
     parse.stop      = parse.stop.slice(1);
     parse.exclusive = true;
   }
@@ -36,7 +36,7 @@ module.exports = function (/* start, stop, step, exclusive */) {
       charCodes = false,
       array     = [],
       reversed  = false,
-      difference, parse;
+      parse;
 
   switch (arguments.length) {
     case 1:
@@ -90,21 +90,10 @@ module.exports = function (/* start, stop, step, exclusive */) {
     var temp = start;
     start    = stop;
     stop     = temp;
-
     reversed = true;
   }
 
-  difference = stop - start; // Cache the difference
-
-  if (!step && !charCodes) {
-    // Both are likely numbers, but no step was provided. Use the greatest
-    // number of decimal places to calculate a step interval appropriately
-    step = Math.pow(10, Math.floor(Math.log(difference > 9 ? difference / 10 : difference) / Math.log(10)));
-  } else {
-    step = Math.abs(step);
-  }
-
-  step = step || 1; // Evals to `0` or `NaN` - will use `1`
+  step = Math.abs(step) || 1; // Evals to `0` or `NaN` - will use `1`
 
   for (var i = start; i <= stop; i += step) {
     array.push(charCodes ? String.fromCharCode(i) : i);
@@ -114,7 +103,7 @@ module.exports = function (/* start, stop, step, exclusive */) {
   if (reversed) { array.reverse(); }
 
   // If it's exclusive, use the step to exclude the final element from the array
-  if (exclusive && difference % step === 0) {
+  if (exclusive && (stop - start) % step === 0) {
     array.pop();
   }
 

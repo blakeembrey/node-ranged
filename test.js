@@ -82,15 +82,4 @@ describe('range', function () {
     assert.deepEqual(range(0, 0.04, 0.01), [0, 0.01, 0.02, 0.03, 0.04], 'works with decimal steps');
     assert.deepEqual(range(0, 0.004, 0.001), [0, 0.001, 0.002, 0.003, 0.004], 'works with decimal steps');
   });
-
-  // Probably too much magic
-  it('should automatically work out the step intervals', function () {
-    assert.deepEqual(range(0, 0.4), [0, 0.1, 0.2, 0.30000000000000004, 0.4], 'works with decimals');
-    assert.deepEqual(range(0, 0.04), [0, 0.01, 0.02, 0.03, 0.04], 'works with decimals');
-    assert.deepEqual(range(0, 0.004), [0, 0.001, 0.002, 0.003, 0.004], 'works with decimals');
-    assert.deepEqual(range(0, 10), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 'works with whole numbers');
-    assert.ok(~range(0, 99).indexOf(55), 'works with larger numbers'); // 0-99 increments by 1
-    assert.deepEqual(range(0, 100), [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 'works with whole numbers');
-    assert.deepEqual(range(0, 1000), [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000], 'works with whole numbers');
-  });
 });
