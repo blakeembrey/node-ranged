@@ -1,6 +1,6 @@
 {
-  "name": "range",
-  "version": "0.0.1",
+  "name": "ranged",
+  "version": "0.0.2",
   "description": "The missing JavaScript range function",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,10 @@
   },
   "repository": "",
   "keywords": [
+    "array",
     "range",
-    "function"
+    "function",
+    "ruby"
   ],
   "author": "Blake Embrey",
   "license": "MIT",
