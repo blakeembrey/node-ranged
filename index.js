@@ -28,55 +28,39 @@ var parseRangeString = function (string) {
   return parse;
 };
 
-module.exports = function (/* start, stop, step, exclusive */) {
-  var start     = 0,
-      stop      = 0,
-      step      = 0,
-      exclusive = false,
-      charCodes = false,
+/**
+ * Simple function with a dynamic arguments length to generate an array
+ *
+ * @param  {Number|String} start     A single character, number or Ruby-esque string
+ * @param  {Number|String} stop      A single character or number, not required with Ruby string
+ * @param  {Number}        step      The distance between each value in the generated array
+ * @param  {Boolean}       exclusive Excludes the final number from the output array
+ *
+ * @return {Array} Generated array range
+ */
+module.exports = function (start, stop, step, exclusive) {
+  var charCodes = false,
       array     = [],
       reversed  = false,
-      parse;
+      parsed;
 
-  switch (arguments.length) {
-    case 1:
-      parse = parseRangeString(arguments[0]);
+  if (arguments.length === 1 || typeof arguments[0] === 'string' && ~arguments[0].indexOf('..')) {
+    parsed = parseRangeString(arguments[0]);
 
-      if (parse instanceof Error) { throw parse; } // Bad syntax parsing
+    if (parsed instanceof Error) { throw parsed; } // Bad syntax parsing - break
 
-      start     = parse.start;
-      stop      = parse.stop;
-      exclusive = parse.exclusive;
-      break;
-    case 2:
-      if (typeof arguments[0] === 'string' && ~arguments[0].indexOf('..')) {
-        parse     = parseRangeString(arguments[0]);
-        start     = parse.start;
-        stop      = parse.stop;
-        exclusive = parse.exclusive;
-        step      = arguments[1] || step; // Second argument should be the step
-      } else {
-        start = arguments[0];
-        stop  = arguments[1];
-      }
-      break;
-    case 3:
-        start = arguments[0];
-        stop  = arguments[1];
-        if (typeof arguments[2] === 'number') {
-          step      = arguments[2];
-        } else {
-          exclusive = !!arguments[2];
-        }
-      break;
-    case 4:
-        start     = arguments[0];
-        stop      = arguments[1];
-        step      = arguments[2];
-        exclusive = !!arguments[3];
-      break;
-    default:
-      throw new Error('Unexpected number of arguments');
+    step      = arguments[1];
+    exclusive = arguments[2];
+    // Set the parsed data after to avoid mutating the arguments object
+    start     = parsed.start;
+    stop      = parsed.stop;
+    exclusive = parsed.exclusive;
+  }
+
+  // If the step turns out not to be a number, switch these
+  if (typeof step !== 'number') {
+    exclusive = exclusive || step;
+    step      = null; // Unset the step
   }
 
   // Kick into character code mode if either types are strings
