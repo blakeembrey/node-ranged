@@ -7,7 +7,7 @@
     "test": "./node_modules/mocha/bin/mocha test.js",
     "bench": "node benchmark.js"
   },
-  "repository": "",
+  "repository": "https://github.com/blakeembrey/ranged.git",
   "keywords": [
     "array",
     "range",
