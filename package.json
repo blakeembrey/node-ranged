@@ -4,10 +4,9 @@
   "description": "The missing JavaScript range function",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test.js",
-    "bench": "node benchmark.js"
+    "test": "./node_modules/mocha/bin/mocha test.js"
   },
-  "repository": "https://github.com/blakeembrey/ranged.git",
+  "repository": "https://github.com/blakeembrey/node-ranged.git",
   "keywords": [
     "array",
     "range",

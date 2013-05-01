@@ -1,5 +1,6 @@
 {
   "name": "ranged",
+  "version": "0.0.3",
   "main": ["./index.js"],
   "dependencies": {}
 }
