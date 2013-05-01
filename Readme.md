@@ -12,7 +12,7 @@ npm install ranged --save
 
 The module exports a single function.
 
-```
+```javascript
 var ranged = require('ranged');
 ```
 
@@ -25,7 +25,7 @@ var ranged = require('ranged');
 
 Passing a string to `ranged` causes the first character to be evaluated as the starting character code and will generate up until the end value.
 
-```
+```javascript
 // Simplest use cases
 ranged(0, 10) // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ranged('0..10') // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
