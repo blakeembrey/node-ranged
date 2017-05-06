@@ -1,5 +1,7 @@
 # Ranged
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/blakeembrey/node-ranged.svg)](https://greenkeeper.io/)
+
 Return a range of numbers or characters based on input.
 
 ## Installation
